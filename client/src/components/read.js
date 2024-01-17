@@ -24,7 +24,7 @@ export const Read = () => {
     };
 
     fetchPost();
-  }, [posts]);
+  }, [posts._id]);
 
   const handleReadClick = (post) => {
     setSelectedPost(post);
