@@ -9,19 +9,21 @@ const Entry = require("./Model/entry")
 app.use(express.urlencoded());
 app.use(express.static('Assets'));
 app.use(express.json());
-app.post("/api/add", async (req, res) => {
+app.post("/Anonymus-thoughts/api/add", async (req, res) => {
   try {
-    const { title,category, content,falseName } = req.body;
-console.log(req.body);
+    const { title, category, content, falseName } = req.body;
+    console.log(req.body);
     if (!title || !content || !falseName) {
-      return res.status(400).json({ error: "Title and content and falseName are required." });
+      return res
+        .status(400)
+        .json({ error: "Title and content and falseName are required." });
     }
 
     const newEntry = new Entry({
       title: title,
       content: content,
-      falseName:falseName,
-      category:category,
+      falseName: falseName,
+      category: category,
     });
 
     const response = await newEntry.save();
@@ -33,14 +35,14 @@ console.log(req.body);
 });
 
 //get all entries
-app.get("/api/all",async(req,res)=>{
-    try{
-      const all = await Entry.find({}).exec()
+app.get("/Anonymus-thoughts/api/all", async (req, res) => {
+  try {
+    const all = await Entry.find({}).exec();
     res.status(200).json(all);
-    }catch(err){
-      console.log("err in getting all",err);
-    }
-})
+  } catch (err) {
+    console.log("err in getting all", err);
+  }
+});
 
 
 

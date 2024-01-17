@@ -8,8 +8,14 @@ export const Read = () => {
 
   useEffect(() => {
     const fetchPost = async () => {
+      const api = axios.create({
+        baseURL: "/Anonymus-thoughts", // Replace with your actual subdirectory
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
       try {
-        const response = await axios.get("/api/all");
+        const response = await api.get("/api/all");
         setPosts(response.data);
       
       } catch (err) {

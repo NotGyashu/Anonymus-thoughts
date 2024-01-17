@@ -7,22 +7,27 @@ export const Write = () => {
   const Post = async (e) => {
     e.preventDefault();
     console.log(data);
+const api = axios.create({
+  baseURL: "/Anonymus-thoughts", // Replace with your actual subdirectory
+  headers: {
+    "Content-Type": "application/json",
+  },
+});
+try {
+  const entry = await api.post("/api/add", data, {
+    headers: {
+      "Content-Type": "application/json",
+    },
+  });
+  console.log("Successfully submitted:", entry.data);
+  window.location.reload();
 
-    try {
-      const entry = await axios.post("/api/add", data, {
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
-      console.log("Successfully submitted:", entry.data);
-      window.location.reload();
+  // Add additional logic if needed after a successful submission
+} catch (err) {
+  console.error("Error in data submission:", err);
 
-      // Add additional logic if needed after a successful submission
-    } catch (err) {
-      console.error("Error in data submission:", err);
-
-      // Add additional error handling logic if needed
-    }
+  // Add additional error handling logic if needed
+}
   };
 
   const input = (e) => {

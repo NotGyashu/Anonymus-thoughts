@@ -2,3 +2,6 @@
 .env
 node_modules
 settings.json
+# Ignore build artifacts
+build/
+dist/
