@@ -7,14 +7,9 @@ export const Write = () => {
   const Post = async (e) => {
     e.preventDefault();
     console.log(data);
-const api = axios.create({
-  baseURL: "/Anonymus-thoughts", // Replace with your actual subdirectory
-  headers: {
-    "Content-Type": "application/json",
-  },
-});
+
 try {
-  const entry = await api.post("/api/add", data, {
+  const entry = await axios.post("/api/add", data, {
     headers: {
       "Content-Type": "application/json",
     },

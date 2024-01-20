@@ -1,6 +1,6 @@
 const express = require('express');
 const app = express();
-const port = 9000;
+const port = process.env.PORT || 9000 ;
 const dotenv=require("dotenv");
 dotenv.config();
 const db = require('./config/mongoose')
@@ -9,7 +9,7 @@ const Entry = require("./Model/entry")
 app.use(express.urlencoded());
 app.use(express.static('Assets'));
 app.use(express.json());
-app.post("/Anonymus-thoughts/api/add", async (req, res) => {
+app.post("/api/add", async (req, res) => {
   try {
     const { title, category, content, falseName } = req.body;
     console.log(req.body);
@@ -35,7 +35,7 @@ app.post("/Anonymus-thoughts/api/add", async (req, res) => {
 });
 
 //get all entries
-app.get("/Anonymus-thoughts/api/all", async (req, res) => {
+app.get("/api/all", async (req, res) => {
   try {
     const all = await Entry.find({}).exec();
     res.status(200).json(all);
