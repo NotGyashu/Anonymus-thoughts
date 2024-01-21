@@ -7,6 +7,15 @@ const db = require('./config/mongoose')
 const Entry = require("./Model/entry")
 // Middleware to parse incoming form data
 app.use(express.urlencoded());
+
+app. use( cors(
+  {
+origin: [""],
+methods: ["POST","GET"],
+credentials: true
+  }
+  )
+         );
 app.use(express.static('Assets'));
 app.use(express.json());
 app.post("/api/add", async (req, res) => {
