@@ -10,7 +10,7 @@ app.use(express.urlencoded());
 
 app. use( cors(
   {
-origin: [""],
+origin: ["https://anonymus-thoughts-client.vercel.app/"],
 methods: ["POST","GET"],
 credentials: true
   }
