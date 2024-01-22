@@ -9,7 +9,7 @@ export const Read = () => {
   useEffect(() => {
     const fetchPost = async () => {
       try {
-        const response = await axios.get("https://anonymus-thoughts-server-gyashu-rahmans-projects.vercel.app/api/all");
+        const response = await axios.get("https://anonymus-thoughts.vercel.app/api/all");
         setPosts(response.data);
       
       } catch (err) {
