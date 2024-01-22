@@ -5,11 +5,11 @@ export const Read = () => {
   const [openDialog, setOpenDialog] = useState(false);
   const [selectedPost, setSelectedPost] = useState(null);
   const [posts, setPosts] = useState([]);
-
+axios.defaults.withCredentials = true ;
   useEffect(() => {
     const fetchPost = async () => {
       try {
-        const response = await axios.get("/api/all");
+        const response = await axios.get("https://anonymus-thoughts.vercel.app/api/all");
         setPosts(response.data);
       
       } catch (err) {
