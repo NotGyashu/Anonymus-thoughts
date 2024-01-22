@@ -5,7 +5,7 @@ export const Read = () => {
   const [openDialog, setOpenDialog] = useState(false);
   const [selectedPost, setSelectedPost] = useState(null);
   const [posts, setPosts] = useState([]);
-
+axios.defaults.withCredentials = true ;
   useEffect(() => {
     const fetchPost = async () => {
       try {
