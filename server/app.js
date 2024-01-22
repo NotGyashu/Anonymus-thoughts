@@ -17,7 +17,7 @@ credentials: true
   ));
 app.use(express.static('Assets'));
 app.use(express.json());
-app.post("/api/add", async (req, res) => {
+app.post("api/add", async (req, res) => {
   try {
     const { title, category, content, falseName } = req.body;
     console.log(req.body);
@@ -46,7 +46,7 @@ app.get("/", (req,res)=>{
   res.json("Hello");
 })
 //get all entries
-app.get("/api/all", async (req, res) => {
+app.get("api/all", async (req, res) => {
   try {
     const all = await Entry.find({}).exec();
     res.status(200).json(all);
