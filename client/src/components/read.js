@@ -9,7 +9,7 @@ axios.defaults.withCredentials = true ;
   useEffect(() => {
     const fetchPost = async () => {
       try {
-        const response = await axios.get("https://anonymus-thoughts.vercel.app/api/all");
+        const response = await axios.get("api/all");
         setPosts(response.data);
       
       } catch (err) {
