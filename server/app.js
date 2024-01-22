@@ -8,13 +8,13 @@ const Entry = require("./Model/entry")
 // Middleware to parse incoming form data
 app.use(express.urlencoded());
 
-app.use(cors(
-  {
-origin: ["https://anonymus-thoughts-client.vercel.app"],
-methods: ["POST","GET"],
-credentials: true
-  }
-  ));
+// app.use(cors(
+//   {
+// origin: ["https://anonymus-thoughts-client.vercel.app"],
+// methods: ["POST","GET"],
+// credentials: true
+//   }
+//   ));
 app.use(express.static('Assets'));
 app.use(express.json());
 app.post("api/add", async (req, res) => {
