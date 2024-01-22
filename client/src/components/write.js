@@ -9,7 +9,7 @@ export const Write = () => {
     console.log(data);
 
 try {
-  const entry = await axios.post("https://anonymus-thoughts-server-gyashu-rahmans-projects.vercel.app/api/add", data, {
+  const entry = await axios.post("https://anonymus-thoughts.vercel.app/api/add", data, {
     headers: {
       "Content-Type": "application/json",
     },
