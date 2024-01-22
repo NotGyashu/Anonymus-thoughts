@@ -9,6 +9,9 @@ const Entry = require("./Model/entry")
 app.use(express.urlencoded());
 app.use(express.static('Assets'));
 app.use(express.json());
+app.get("/", (req, res) => {
+  res.json("Hello");
+});
 app.post("/api/add", async (req, res) => {
   try {
     const { title, category, content, falseName } = req.body;
