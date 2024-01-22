@@ -42,7 +42,7 @@ app.post("api/add", async (req, res) => {
   }
 });
 
-app.get("/server", (req,res)=>{
+app.get("/", (req,res)=>{
   res.json("Hello");
 })
 //get all entries
