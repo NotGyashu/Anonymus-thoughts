@@ -18,7 +18,7 @@ axios.defaults.withCredentials = true ;
     };
 
     fetchPost();
-  }, [posts._id]);
+  }, []);
 
   const handleReadClick = (post) => {
     setSelectedPost(post);
