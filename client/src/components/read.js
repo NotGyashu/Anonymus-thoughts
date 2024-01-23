@@ -1,19 +1,22 @@
 import React, { useEffect, useState } from "react";
 import Modal from "./modal";
 import axios from "axios";
+
 export const Read = () => {
   const [openDialog, setOpenDialog] = useState(false);
   const [selectedPost, setSelectedPost] = useState(null);
   const [posts, setPosts] = useState([]);
-axios.defaults.withCredentials = true ;
+
+  axios.defaults.withCredentials = true;
+
   useEffect(() => {
     const fetchPost = async () => {
       try {
         const response = await axios.get("api/all");
         setPosts(response.data);
-      
       } catch (err) {
         console.log("err in fetching posts", err);
+        // Handle error appropriately, e.g., setPosts([]) or show an error message.
       }
     };
 
@@ -34,25 +37,26 @@ axios.defaults.withCredentials = true ;
     const trimmedWords = words.slice(0, maxWords);
     return trimmedWords.join(" ");
   }
+
+  // Ensure that posts is an array before attempting to map
+  const postsArray = Array.isArray(posts) ? posts : [];
+
   return (
-    <div class="grid grid-cols-4 gap-3 p-1 relative">
-      {posts.map((post) => (
+    <div className="grid grid-cols-4 gap-3 p-1 relative">
+      {postsArray.map((post) => (
         <div
           key={post._id}
-          className="box-shadow col-span-1 p-2  rounded font-cookie text-[#2d0d4a] text-xl relative flex flex-col item-center"
+          className="box-shadow col-span-1 p-2 rounded font-cookie text-[#2d0d4a] text-xl relative flex flex-col item-center"
         >
-          <div className="flex justify-between px-3  ">
-            <h2 class="font-bold ">{post.title}</h2>
-            <span class="text-xs">{post.category}</span>
-            <div
-              
-              className="h-[1.5em] w-[1.5em] rounded-full border border-purple-900"
-            />
+          <div className="flex justify-between px-3">
+            <h2 className="font-bold">{post.title}</h2>
+            <span className="text-xs">{post.category}</span>
+            <div className="h-[1.5em] w-[1.5em] rounded-full border border-purple-900" />
           </div>
           <p className="flex-grow">{trimContent(post.content, 40)}.....</p>
 
-          <div className="relative bottom-0  ">
-            <div class="flex justify-between">
+          <div className="relative bottom-0">
+            <div className="flex justify-between">
               <p>Posted by {post.falseName}</p>
               <button
                 onClick={() => handleReadClick(post)}
