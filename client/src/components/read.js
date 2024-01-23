@@ -14,6 +14,7 @@ export const Read = () => {
       try {
         const response = await axios.get("api/all");
         setPosts(response.data);
+        console.log(posts);
       } catch (err) {
         console.log("err in fetching posts", err);
         // Handle error appropriately, e.g., setPosts([]) or show an error message.
