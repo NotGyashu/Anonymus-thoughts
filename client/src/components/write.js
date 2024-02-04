@@ -9,7 +9,7 @@ export const Write = () => {
     console.log(data);
 
 try {
-  const entry = await axios.post("api/add", data, {
+  const entry = await axios.post("/api/add", data, {
     headers: {
       "Content-Type": "application/json",
     },

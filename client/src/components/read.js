@@ -12,7 +12,7 @@ export const Read = () => {
   useEffect(() => {
     const fetchPost = async () => {
       try {
-        const response = await axios.get("api/all");
+        const response = await axios.get("/api/all");
         setPosts(response.data);
         console.log(posts);
       } catch (err) {

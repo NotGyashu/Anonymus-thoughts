@@ -7,6 +7,7 @@ dotenv.config()
 mongoose.connect(url);
 
 
+
 //acquire the connection (to check if it is succesfull)
 const db = mongoose.connection;
 
