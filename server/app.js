@@ -11,7 +11,7 @@ app.use(express.urlencoded());
 
 app.use(
   cors({
-    origin: ["https://anonymus-thoughts-client.vercel.app/"],
+    origin: ["*"],
     methods: ["POST", "GET"],
     credentials: true,
   })
