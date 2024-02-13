@@ -2,7 +2,7 @@
   "rewrites": [
     {
       "source": "/api/(.*)",
-      "destination": "https://your-backend-api.com/api/$1"
+      "destination": "https://anonymus-thoughts-api.onrender.com/api/$1"
     }
   ]
 }
