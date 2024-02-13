@@ -32,7 +32,7 @@ const Modal = ({ isOpen, onClose, post }) => {
 
   const handleDelete = async () => {
     // Implement delete functionality here
-    const result = await axios.delete(`/api/${data._id}`);
+    const result = await axios.delete(`api/${data._id}`);
     window.location.reload();
   };
 
@@ -48,11 +48,11 @@ const Modal = ({ isOpen, onClose, post }) => {
     e.preventDefault();
     try {
       console.log(data);
-    const res =  await axios.put(`/api/${post._id}`, data);
-      if(res.status == 200){
-        setEnable(false)
-      }else{
-        window.alert("err")
+      const res = await axios.put(`api/${post._id}`, data);
+      if (res.status == 200) {
+        setEnable(false);
+      } else {
+        window.alert("err");
       }
     } catch (err) {
       console.log("err in editing", err);
@@ -64,7 +64,7 @@ const Modal = ({ isOpen, onClose, post }) => {
       className={`fixed top-0 left-0 w-full h-full flex items-center justify-center bg-black bg-opacity-50 ${
         isOpen ? "" : "hidden"
       }`}
-    >
+     >
       <form className="bg-white p-8 rounded shadow-md text-xl text-[#2d0d4a] w-[50vw] h-[60vh]  font-cookie relative">
         <div className="flex justify-between mb-4 ">
           <input
@@ -117,7 +117,10 @@ const Modal = ({ isOpen, onClose, post }) => {
             ) : (
               <button
                 className="text-gray-600 absolute bottom-4 right-20 hover:text-gray-800"
-                onClick={onClose}
+                onClick={(e)=>{
+                  e.preventDefault()
+                  onClose();
+                }}
               >
                 Close
               </button>
