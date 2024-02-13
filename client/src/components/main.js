@@ -3,11 +3,10 @@ import { Read } from "./read";
 import { Write } from "./write";
 import AddIcon from "@mui/icons-material/Add";
 
-
 const Main = () => {
-  const [write,setWrite]= useState(false);
+  const [write, setWrite] = useState(false);
   return (
-    <div className="flex-grow flex flex-col items-center p-2 gap-3">
+    <div className="flex-grow flex custom-scrollbar flex-col items-center p-2 gap-3">
       {(write && <Write />) || <Read />}
 
       <div

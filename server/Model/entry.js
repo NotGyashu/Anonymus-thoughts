@@ -2,6 +2,7 @@ const mongoose = require("mongoose");
 
 const entrySchema = new mongoose.Schema(
   {
+    
     title: {
       type: String,
       required: true,
@@ -16,11 +17,9 @@ const entrySchema = new mongoose.Schema(
     },
     img: {
       type: String,
-      
     },
     category: {
       type: String,
-      
     },
   },
   {

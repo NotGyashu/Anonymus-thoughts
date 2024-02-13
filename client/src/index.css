@@ -3,9 +3,18 @@
 @tailwind utilities;
 
 @layer utilities {
+
+  .custom-scrollbar::-webkit-scrollbar {
+  display: none; /* Hide scrollbar for Chrome, Safari, and Opera */
+}
+
+.custom-scrollbar {
+  -ms-overflow-style: none; /* Hide scrollbar for Internet Explorer and Edge */
+  scrollbar-width: none; /* Hide scrollbar for Firefox */
+}
   .box-shadow {
-    box-shadow: 1px 4px 5px 2px rgba(173,158,217,0.75);
-    -webkit-box-shadow: 1px 4px 5px 2px rgba(173,158,217,0.75);
-    -moz-box-shadow: 1px 4px 5px 2px rgba(173,158,217,0.75);
+    box-shadow: 1px 4px 5px 2px rgba(173, 158, 217, 0.75);
+    -webkit-box-shadow: 1px 4px 5px 2px rgba(173, 158, 217, 0.75);
+    -moz-box-shadow: 1px 4px 5px 2px rgba(173, 158, 217, 0.75);
   }
 }

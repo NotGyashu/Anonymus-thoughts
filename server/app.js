@@ -12,12 +12,13 @@ app.use(express.urlencoded());
 app.use(
   cors({
     origin: ["*"],
-    methods: ["POST", "GET"],
+    methods: ["POST", "GET","PUT", "DELETE"],
     credentials: true,
   })
 );
 app.use(express.static("Assets"));
 app.use(express.json());
+
 app.post("/api/add", async (req, res) => {
   try {
     const { title, category, content, falseName } = req.body;
@@ -46,14 +47,40 @@ app.post("/api/add", async (req, res) => {
 app.get("/", (req, res) => {
   res.json("Hello");
 });
+
 //get all entries
-app.get("/api/all", async (req, res) => {
+app.get("/api/all", async(req, res) => {
   try {
     const all = await Entry.find({}).exec();
     res.status(200).json(all);
   } catch (err) {
     console.log("err in getting all", err);
   }
+});
+
+//delete operation
+app.delete("/api/:id", async(req, res) => {
+console.log("here");
+  try{
+    const post = await Entry.findById(req.params.id);
+   await post.deleteOne();
+   res.status(200).json("deletion done bro");
+  } catch (err) {
+    console.log("err in delet", err);
+  }
+});
+
+//update operation
+app.put("/api/:id", async (req, res) => {
+ try {
+   const post = await Entry.findById(req.params.id);
+   const newd = req.body;
+   
+     await post.updateOne({ $set: req.body });
+   return res.status(200).json(post);
+ } catch (err) {
+   console.log("err in update", err);
+ }
 });
 
 app.listen(port, function (err) {
