@@ -43,7 +43,7 @@ export const Read = () => {
   const postsArray = Array.isArray(posts) ? posts : [];
 
   return (
-    <div className="grid grid-cols-4 gap-3 p-1 relative ">
+    <div className="grid lg:grid-cols-4 md:grid-cols-3 sm:grid-cols-2   gap-3 p-1 relative ">
       {postsArray.map((post) => (
         <div
           key={post._id}

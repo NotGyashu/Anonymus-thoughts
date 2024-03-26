@@ -8,21 +8,21 @@ export const Write = () => {
     e.preventDefault();
     console.log(data);
 
-try {
-  const entry = await axios.post("api/add", data, {
-    headers: {
-      "Content-Type": "application/json",
-    },
-  });
-  console.log("Successfully submitted:", entry.data);
-  window.location.reload();
+    try {
+      const entry = await axios.post("api/add", data, {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+      console.log("Successfully submitted:", entry.data);
+      window.location.reload();
 
-  // Add additional logic if needed after a successful submission
-} catch (err) {
-  console.error("Error in data submission:", err);
+      // Add additional logic if needed after a successful submission
+    } catch (err) {
+      console.error("Error in data submission:", err);
 
-  // Add additional error handling logic if needed
-}
+      // Add additional error handling logic if needed
+    }
   };
 
   const input = (e) => {
@@ -33,12 +33,12 @@ try {
 
   return (
     <div class="top-0 left-0 w-full h-full z-20 fixed bg-black bg-opacity-30 flex items-center justify-center">
-      <div className=" w-[50vw] box-shadow p-5 mt-3 rounded bg-white">
+      <div className=" lg:w-[50vw] md:w-[70vw]  w-[90vw] box-shadow lg:p-5 md:p-4 p-2 mt-3 rounded bg-white">
         <form
-          className="flex flex-col h-full gap-2 font-cookie text-xl text-[#2d0d4a]"
+          className="flex flex-col h-full gap-2  font-cookie text-xl text-[#2d0d4a]"
           onSubmit={Post}
         >
-          <div class="w-full flex gap-3">
+          <div class="w-full flex gap-1 md:gap-3">
             <input
               id="title"
               required
@@ -51,7 +51,7 @@ try {
               id="category"
               name="category"
               required
-              class="block appearance-none w-[20%] bg-white border border-gray-300 hover:border-gray-500 px-4  pr-8 rounded leading-tight focus:outline-none   transition duration-500 ease-in-out"
+              class="block appearance-none w-[20%] bg-white border border-gray-300 hover:border-gray-500 px-1 md:px-4  md:pr-4 lg:pr-8 rounded leading-tight focus:outline-none   transition duration-500 ease-in-out"
               onChange={input}
             >
               <option value="" disabled selected hidden>
