@@ -5,7 +5,7 @@ import DarkModeTwoToneIcon from "@mui/icons-material/DarkModeTwoTone";
 import CardMembershipTwoToneIcon from "@mui/icons-material/CardMembershipTwoTone";
 export const Header = () => {
   return (
-    <div class="h-[10vh] bg-[#877f90] flex items-center text-white justify-between lg:px-4 md:px-2 px-1 ">
+    <div class="h-[10vh] bg-[#2d0d4a] flex items-center text-white justify-between lg:px-4 md:px-2 px-1 ">
       <span class="font-cursive lg:text-3xl md:text-xl text-lg">
         Anonymus thoughts
       </span>
