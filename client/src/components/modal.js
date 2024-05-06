@@ -9,7 +9,7 @@ const Modal = ({ isOpen, onClose, post }) => {
   const [anchorEl, setAnchorEl] = useState(null);
   const [enable, setEnable] = useState(false);
   const [data, setData] = useState(post);
-
+console.log(post)
   useEffect(() => {
     // Update the state with the initial post data when the component mounts
     setData(post);
@@ -26,7 +26,6 @@ const Modal = ({ isOpen, onClose, post }) => {
   const handleEdit = () => {
     // Implement edit functionality here
     setEnable(true);
-    console.log("edit");
     handleClose();
   };
 
@@ -49,15 +48,39 @@ const Modal = ({ isOpen, onClose, post }) => {
     try {
       console.log(data);
       const res = await axios.put(`api/${post._id}`, data);
-      if (res.status == 200) {
+      if (res.status === 200) {
         setEnable(false);
       } else {
-        window.alert("err");
+        window.alert("Error occurred while editing");
       }
     } catch (err) {
-      console.log("err in editing", err);
+      console.log("Error in editing", err);
     }
   };
+
+  
+
+  // Inside the return statement
+  {
+    !post?.content ? ( // If post is an audio object and not null, render audio tag
+      <audio controls>
+        <source src={post?.voiceRecording} type="audio/mp3" />
+        Your browser does not support the audio element.
+      </audio>
+    ) : (
+      // If post is not an audio object or null, render textarea for text content
+      <textarea
+        value={data?.content}
+        className={`w-full h-[75%] resize-none ${
+          enable ? "" : "focus: outline-none"
+        }`}
+        readOnly={!enable}
+        onChange={handleChange}
+        name="content"
+      />
+    );
+  }
+
 
   return (
     <div
@@ -86,15 +109,23 @@ const Modal = ({ isOpen, onClose, post }) => {
             <MenuItem onClick={handleDelete}>Delete</MenuItem>
           </Menu>
         </div>
-        <textarea
-          value={data?.content}
-          className={`w-full h-[75%] resize-none ${
-            enable ? "" : "focus: outline-none"
-          }`}
-          readOnly={!enable}
-          onChange={handleChange}
-          name="content"
-        />
+        {!post?.content ? ( // If post is an audio object, render audio tag
+          <audio controls>
+            <source src={post?.voiceRecording} type="audio/mp3" />
+            Your browser does not support the audio element.
+          </audio>
+        ) : (
+          // If post is not an audio object, render textarea for text content
+          <textarea
+            value={data?.content}
+            className={`w-full h-[75%] resize-none ${
+              enable ? "" : "focus: outline-none"
+            }`}
+            readOnly={!enable}
+            onChange={handleChange}
+            name="content"
+          />
+        )}
 
         <div class="flex justify-between">
           <input

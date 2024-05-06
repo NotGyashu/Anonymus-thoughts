@@ -4,6 +4,7 @@ const posts = [
     content:
       "Feel free to adjust the h-[4em] value based on your design preferences. The em unit can be modified to achieve the desired height. You can experiment with different values until you find the one that fits your layout appropriately.",
     falseName: "Pamy",
+    //"proxy": "https://anonymus-thoughts-api.onrender.com/"
   },
   {
     title: "Title",

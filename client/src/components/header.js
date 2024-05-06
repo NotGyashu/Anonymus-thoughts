@@ -3,7 +3,10 @@ import SearchTwoToneIcon from "@mui/icons-material/SearchTwoTone";
 import HelpOutlineTwoToneIcon from "@mui/icons-material/HelpOutlineTwoTone";
 import DarkModeTwoToneIcon from "@mui/icons-material/DarkModeTwoTone";
 import CardMembershipTwoToneIcon from "@mui/icons-material/CardMembershipTwoTone";
+import { useContext } from "react";
+import { AuthContext } from "../context/authcontext";
 export const Header = () => {
+  const {logout} = useContext(AuthContext)
   return (
     <div class="h-[10vh] bg-[#2d0d4a] flex items-center text-white justify-between lg:px-4 md:px-2 px-1 ">
       <span class="font-cursive lg:text-3xl md:text-xl text-lg">
@@ -44,7 +47,7 @@ export const Header = () => {
       <div class="flex lg:gap-5 gap-2">
         <HelpOutlineTwoToneIcon />
         <DarkModeTwoToneIcon />
-        <CardMembershipTwoToneIcon />
+        <CardMembershipTwoToneIcon onClick={logout}/>
       </div>
     </div>
   );

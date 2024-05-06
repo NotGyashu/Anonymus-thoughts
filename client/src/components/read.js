@@ -1,18 +1,20 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import Modal from "./modal";
 import axios from "axios";
+import { AuthContext } from "../context/authcontext";
 
 export const Read = () => {
   const [openDialog, setOpenDialog] = useState(false);
   const [selectedPost, setSelectedPost] = useState(null);
   const [posts, setPosts] = useState([]);
-
+  const [audio,setAudio] = useState(null);
+const {user} = useContext(AuthContext)
   axios.defaults.withCredentials = true;
 
   useEffect(() => {
     const fetchPost = async () => {
       try {
-        const response = await axios.get("/api/all");
+        const response = await axios.get(`/api/all/${user._id}`);
         setPosts(response.data);
         console.log(posts);
       } catch (err) {
@@ -22,6 +24,7 @@ export const Read = () => {
     };
 
     fetchPost();
+ 
   }, []);
 
   const handleReadClick = (post) => {
@@ -43,7 +46,7 @@ export const Read = () => {
   const postsArray = Array.isArray(posts) ? posts : [];
 
   return (
-    <div className="grid lg:grid-cols-4 md:grid-cols-3 sm:grid-cols-2   gap-3 p-1 relative ">
+    <div className="grid lg:grid-cols-4 md:grid-cols-3 sm:grid-cols-2 gap-3 p-1 relative">
       {postsArray.map((post) => (
         <div
           key={post._id}
@@ -54,7 +57,17 @@ export const Read = () => {
             <span className="text-xs">{post.category}</span>
             <div className="h-[1.5em] w-[1.5em] rounded-full border border-purple-900" />
           </div>
-          <p className="flex-grow">{trimContent(post.content, 40)}.....</p>
+          <p className="flex-grow">
+            {post.content ? (
+              trimContent(post.content, 40) + "....."
+            ) : (
+              // Handle recorded blob as audio
+              <audio controls className="w-full my-2 ">
+                <source src={`/api/audio/${post.voiceRecording}`} />
+              </audio>
+            )}
+          </p>
+          {console.log(posts.voiceRecording)}
 
           <div className="relative bottom-0">
             <div className="flex justify-between">

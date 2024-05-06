@@ -2,14 +2,16 @@ const mongoose = require("mongoose");
 
 const entrySchema = new mongoose.Schema(
   {
-    
     title: {
       type: String,
       required: true,
     },
     content: {
       type: String,
-      required: true,
+    },
+    voiceRecording: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "GridFS",
     },
     falseName: {
       type: String,
@@ -18,7 +20,7 @@ const entrySchema = new mongoose.Schema(
     img: {
       type: String,
     },
-    category: {
+    author: {
       type: String,
     },
   },

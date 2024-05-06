@@ -1,15 +1,17 @@
 import axios from "axios";
-import { useState } from "react";
+import { useContext, useState } from "react";
+import { AuthContext } from "../context/authcontext";
 
 export const Write = () => {
   const [data, setData] = useState({});
-
+const {user} = useContext(AuthContext)
   const Post = async (e) => {
     e.preventDefault();
     console.log(data);
-
+    
     try {
-      const entry = await axios.post("api/add", data, {
+      const postData = { ...data, author: user._id };
+      const entry = await axios.post("api/add", postData, {
         headers: {
           "Content-Type": "application/json",
         },
@@ -78,7 +80,7 @@ export const Write = () => {
             rows="6" // Set the maximum number of rows
             placeholder="Write your thoughts"
             onChange={input}
-          />
+          ></textarea>
           <div className="flex justify-between">
             <input
               id="falseName"
