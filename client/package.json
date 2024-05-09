@@ -45,6 +45,5 @@
   "devDependencies": {
     "tailwindcss": "^3.4.1"
   },
-  "proxy": "https://anonymus-thoughts-api.onrender.com/"
+  "proxy": "http://localhost:9000"
 }
-

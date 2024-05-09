@@ -1,6 +1,5 @@
 import React, { useState, useRef, useEffect, useContext } from "react";
 import MicIcon from "@mui/icons-material/Mic";
-import StopIcon from "@mui/icons-material/Stop";
 import SaveIcon from "@mui/icons-material/Save";
 import axios from "axios"
 import { AuthContext } from "../context/authcontext";
@@ -13,7 +12,7 @@ const Record = () => {
   const mediaRecorderRef = useRef(null);
   const intervalRef = useRef(null);
   const pauseTimeRef = useRef(0);
-const { user } = useContext(AuthContext);
+  const { user } = useContext(AuthContext);
   const [data, setData] = useState({
     author:user._id,
     category:"voice",
@@ -130,8 +129,6 @@ const { user } = useContext(AuthContext);
      setIsRecordingFinished(true)
      
    }};
-
-
 
   return (
     <div className="flex flex-col items-center justify-center  lg:w-[50vw] md:w-[70vw]  w-[90vw] box-shadow  mt-3 rounded bg-white ">

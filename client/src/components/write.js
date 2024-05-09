@@ -4,7 +4,7 @@ import { AuthContext } from "../context/authcontext";
 
 export const Write = () => {
   const [data, setData] = useState({});
-const {user} = useContext(AuthContext)
+  const {user} = useContext(AuthContext)
   const Post = async (e) => {
     e.preventDefault();
     console.log(data);
@@ -32,6 +32,19 @@ const {user} = useContext(AuthContext)
     const value = e.target.value;
     setData((prev) => ({ ...prev, [id]: value }));
   };
+
+  const handleIconClick = (e) => {
+    // Create a new KeyboardEvent with the desired key and modifiers
+    
+    const event = new KeyboardEvent("keydown", {
+      key: ".",
+      metaKey: true, // Set to true to simulate the Windows key
+    });
+
+    // Dispatch the keyboard event
+    document.dispatchEvent(event);
+  };
+
 
   return (
     <div class="top-0 left-0 w-full h-full z-20 fixed bg-black bg-opacity-30 flex items-center justify-center">
@@ -73,6 +86,7 @@ const {user} = useContext(AuthContext)
               </option>
             </select>
           </div>
+          <button onClick={handleIconClick}>Click me</button>
           <textarea
             id="content"
             required

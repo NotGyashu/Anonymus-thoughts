@@ -2,8 +2,6 @@ import React, { useState } from "react";
 import { Write } from "./write";
 import Record from "./record";
 
-
-
 const Add = () => {
   const [write, setWrite] = useState(false);
   const [record, setRecord] = useState(false);

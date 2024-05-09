@@ -6,7 +6,8 @@ const port = process.env.PORT || 9000;
 const multer = require("multer");
 const dotenv = require("dotenv");
 const streamifier = require("streamifier");
-
+const { GridFSBucket, ObjectId } = require("mongodb");
+const { Types } = require("mongoose");
 dotenv.config();
 const db = require("./config/mongoose");
 const Entry = require("./Model/entry");
@@ -14,7 +15,7 @@ const User = require("./Model/user");
 const upload = multer({ storage: multer.memoryStorage() });
 
 // Middleware to parse incoming form data
-app.use(express.urlencoded());
+app.use(express.urlencoded({ extended: true }));
 // Add middleware to parse JSON bodies
 app.use(express.json());
 app.use(
@@ -25,7 +26,6 @@ app.use(
   })
 );
 app.use(express.static("Assets"));
-app.use(express.json());
 
 app.post("/api/add", upload.single("voiceRecording"), async (req, res) => {
   try {
@@ -35,7 +35,6 @@ app.post("/api/add", upload.single("voiceRecording"), async (req, res) => {
 
     if (req.file) {
       const voiceRecording = req.file;
-      console.log(voiceRecording);
       const gridFSBucket = new mongoose.mongo.GridFSBucket(
         mongoose.connection.db
       );
@@ -47,7 +46,7 @@ app.post("/api/add", upload.single("voiceRecording"), async (req, res) => {
         const fileStream = streamifier.createReadStream(voiceRecording.buffer);
         fileStream.pipe(writeStream);
 
-        writeStream.on("finish", () => {
+        writeStream.on("finish", async () => {
           // Access Entry.title here since the file upload is complete
           newEntry = new Entry({
             title: title,
@@ -56,6 +55,9 @@ app.post("/api/add", upload.single("voiceRecording"), async (req, res) => {
             author: author,
             voiceRecording: writeStream.id,
           });
+          const response = await newEntry.save();
+          res.status(200).json(response);
+          console.log(response);
           resolve();
         });
         writeStream.on("error", (err) => reject(err));
@@ -69,33 +71,55 @@ app.post("/api/add", upload.single("voiceRecording"), async (req, res) => {
         category: category,
         author: author,
       });
+      const response = await newEntry.save();
+      res.status(200).json(response);
+      console.log(response);
     } else {
       return res.status(400).json({ error: "No content or files provided" });
     }
-
-    const response = await newEntry.save();
-    res.status(200).json(response);
-    console.log(response);
   } catch (err) {
     console.error(err);
     res.status(500).json({ error: "Internal Server Error" });
   }
 });
 
-// Route to serve audio files
+// Endpoint to retrieve audio from GridFS
 app.get("/api/audio/:id", async (req, res) => {
   try {
-    const entryId = req.params.id;
-    const entry = await Entry.findById(entryId);
-
-    if (!entry || !entry.voiceRecording) {
-      console.log("no audio")
+    const fileId = req.params.id;
+    const bucket = new GridFSBucket(db, { bucketName: "fs" });
+console.log(bucket)
+    // Query fs.files collection to get file metadata
+    const fileDoc = await bucket.find({ _id: fileId }).toArray();
+    console.log(fileDoc)
+    if (!fileDoc || fileDoc.length === 0) {
+      console.log("no audio");
       return res.status(404).send("Audio not found");
     }
 
-    // Assuming voiceRecording is stored as a Buffer in your database
-    res.set("Content-Type", entry.voiceRecording.contentType);
-    res.send(entry.voiceRecording.data);
+    // Get file length from metadata
+    const fileLength = fileDoc[0].length;
+
+    // Initialize buffers array to store file chunks
+    const buffers = [];
+
+    // Query fs.chunks collection to get file chunks
+    const chunksStream = bucket.openDownloadStream(fileId);
+    chunksStream.on("data", (chunk) => buffers.push(chunk));
+    chunksStream.on("error", (error) => {
+      console.error("Error streaming chunks:", error);
+      res.status(500).send("Error retrieving audio");
+    });
+    chunksStream.on("end", () => {
+      // Concatenate file chunks into a single buffer
+      const audioBuffer = Buffer.concat(buffers);
+      // Set Content-Length header
+      res.set("Content-Length", fileLength);
+      // Set Content-Type header
+      res.set("Content-Type", fileDoc[0].contentType);
+      // Send audio buffer as response
+      res.send(audioBuffer);
+    });
   } catch (err) {
     console.error("Error retrieving audio:", err);
     res.status(500).send("Internal Server Error");

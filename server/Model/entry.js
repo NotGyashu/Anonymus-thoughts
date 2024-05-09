@@ -9,6 +9,9 @@ const entrySchema = new mongoose.Schema(
     content: {
       type: String,
     },
+    category: {
+      type: String,
+    },
     voiceRecording: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "GridFS",
