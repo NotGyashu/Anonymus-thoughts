@@ -86,9 +86,9 @@ app.post("/api/add", upload.single("voiceRecording"), async (req, res) => {
 // Endpoint to retrieve audio from GridFS
 app.get("/api/audio/:id", async (req, res) => {
   try {
-    const fileId = req.params.id;
+    const fileId = new ObjectId(req.params.id);
     const bucket = new GridFSBucket(db, { bucketName: "fs" });
-console.log(bucket)
+    console.log("File ID:", fileId);
     // Query fs.files collection to get file metadata
     const fileDoc = await bucket.find({ _id: fileId }).toArray();
     console.log(fileDoc)
