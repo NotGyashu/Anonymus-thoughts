@@ -107,7 +107,9 @@ const Record = () => {
               "Content-Type":"multipart/from-data"
             }
           });
+          window.location.reload();
           console.log("Recording saved successfully:", response.data);
+
           
         } catch (error) {
           console.error("Error saving recording:", error);

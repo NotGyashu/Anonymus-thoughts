@@ -59,7 +59,7 @@ const {user} = useContext(AuthContext)
           </div>
           <p className="flex-grow">
             {post.content ? (
-              trimContent(post.content, 40) + "....."
+              <div className="py-2">{trimContent(post.content, 40) + "....."}</div>
             ) : (
               // Handle recorded blob as audio
               <audio controls className="w-full my-2 ">
