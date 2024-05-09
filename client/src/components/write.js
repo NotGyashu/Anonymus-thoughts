@@ -2,6 +2,10 @@ import axios from "axios";
 import { useContext, useState } from "react";
 import { AuthContext } from "../context/authcontext";
 
+
+import EmojiPicker from "emoji-picker-react";
+ // Assuming it's from react-emoji-picker
+
 export const Write = () => {
   const [data, setData] = useState({});
   const {user} = useContext(AuthContext)
@@ -33,21 +37,19 @@ export const Write = () => {
     setData((prev) => ({ ...prev, [id]: value }));
   };
 
-  const handleIconClick = (e) => {
-    // Create a new KeyboardEvent with the desired key and modifiers
-    
-    const event = new KeyboardEvent("keydown", {
-      key: ".",
-      metaKey: true, // Set to true to simulate the Windows key
-    });
-
-    // Dispatch the keyboard event
-    document.dispatchEvent(event);
-  };
+const handleEmojiSelect = (emojiObject) => {
+  console.log(data);
+  const emoji = emojiObject.emoji;
+  setData((prev) => ({
+    ...prev,
+    content: prev.content ? prev.content + emoji : emoji,
+  }));
+  console.log(data);
+};
 
 
   return (
-    <div class="top-0 left-0 w-full h-full z-20 fixed bg-black bg-opacity-30 flex items-center justify-center">
+    <div class="top-0 left-0 w-full h-full z-20 fixed bg-black bg-opacity-30 flex items-center justify-center overflow-y-scroll">
       <div className=" lg:w-[50vw] md:w-[70vw]  w-[90vw] box-shadow lg:p-5 md:p-4 p-2 mt-3 rounded bg-white">
         <form
           className="flex flex-col h-full gap-2  font-cookie text-xl text-[#2d0d4a]"
@@ -72,21 +74,27 @@ export const Write = () => {
               <option value="" disabled selected hidden>
                 Category
               </option>
-              <option value="dark" class="text-[#2d0d4a] hover:bg-#2d0d4a">
-                Dark
+              <option value="Random" class="text-[#2d0d4a] hover:bg-#2d0d4a">
+                Random
               </option>
-              <option value="laugh" class="text-[#2d0d4a] hover:bg-#2d0d4a">
-                Laugh
+              <option value="Happy" class="text-[#2d0d4a] hover:bg-#2d0d4a">
+                Happy
               </option>
-              <option value="sad" class="text-[#2d0d4a] hover:bg-#2d0d4a">
+              <option value="Sad" class="text-[#2d0d4a] hover:bg-#2d0d4a">
                 Sad
               </option>
-              <option value="cringe" class="text-[#2d0d4a] hover:bg-#2d0d4a">
-                Cringe
+              <option value="Lesson" class="text-[#2d0d4a] hover:bg-#2d0d4a">
+                Lesson
+              </option>
+              <option value="Goal" class="text-[#2d0d4a] hover:bg-#2d0d4a">
+                Goal
+              </option>
+              <option value="Memory" class="text-[#2d0d4a] hover:bg-#2d0d4a">
+                Memory
               </option>
             </select>
           </div>
-          <button onClick={handleIconClick}>Click me</button>
+
           <textarea
             id="content"
             required
@@ -94,7 +102,15 @@ export const Write = () => {
             rows="6" // Set the maximum number of rows
             placeholder="Write your thoughts"
             onChange={input}
+            value={data.content}
           ></textarea>
+
+          <EmojiPicker
+            onEmojiClick={(emoji) => handleEmojiSelect(emoji)}
+            reactionsDefaultOpen={true}
+            className="w-[100%] "
+            style={{ width: "100%", height: 300 }}
+          />
           <div className="flex justify-between">
             <input
               id="falseName"

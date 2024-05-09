@@ -63,9 +63,8 @@ console.log(post)
   // Inside the return statement
   {
     !post?.content ? ( // If post is an audio object and not null, render audio tag
-      <audio controls>
-        <source src={post?.voiceRecording} type="audio/mp3" />
-        Your browser does not support the audio element.
+      <audio controls className="w-full my-2 ">
+        <source src={`/api/audio/${post?.voiceRecording}`} />
       </audio>
     ) : (
       // If post is not an audio object or null, render textarea for text content
