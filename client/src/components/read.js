@@ -14,7 +14,7 @@ const {user} = useContext(AuthContext)
   useEffect(() => {
     const fetchPost = async () => {
       try {
-        const response = await axios.get(`/api/all/${user._id}`);
+        const response = await axios.get(`api/all/${user._id}`);
         setPosts(response.data);
         console.log(posts);
       } catch (err) {
@@ -63,7 +63,7 @@ const {user} = useContext(AuthContext)
             ) : (
               // Handle recorded blob as audio
               <audio controls className="w-full my-2 ">
-                <source src={`/api/audio/${post.voiceRecording}`} />
+                <source src={`api/audio/${post.voiceRecording}`} />
               </audio>
             )}
           </p>
@@ -83,7 +83,7 @@ const {user} = useContext(AuthContext)
         </div>
       ))}
 
-      <Modal isOpen={openDialog} onClose={closeModal} post={selectedPost} />
+      { selectedPost && <Modal isOpen={openDialog} onClose={closeModal} post={selectedPost} />}
     </div>
   );
 };
